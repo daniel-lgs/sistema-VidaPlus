@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>VidaPlus - Painel do Paciente</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #1c7c54;
+      --primary-dark: #155b3d;
+      --bg: #f3f5f7;
+      --card-bg: #ffffff;
+      --accent: #0f9cf5;
+      --text-main: #1f2933;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    .user-info {
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .welcome-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .welcome-text h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .welcome-text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .notif-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .notif-toggle button {
+      position: relative;
+      width: 56px;
+      height: 28px;
+      border-radius: 999px;
+      border: none;
+      background: #e5e7eb;
+      cursor: pointer;
+      padding: 2px;
+      transition: background 0.2s;
+    }
+
+    .notif-toggle button .circle {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
+    }
+
+    .notif-toggle button.ativo {
+      background: var(--accent);
+    }
+
+    .notif-toggle button.ativo .circle {
+      transform: translateX(28px);
+    }
+
+    .notif-status {
+      font-weight: 600;
+    }
+
+    .grid-opcoes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card-opcao {
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      padding: 1.5rem 1.25rem;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+    }
+
+    .card-opcao h2 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-opcao p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .card-opcao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 900px) {
+      .grid-opcoes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grid-opcoes {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sistema VidaPlus</div>
+    <div class="user-info">
+      <div>Paciente: <strong>João da Silva</strong></div>
+      <div>Cartão SUS: 1234 5678 9012 3456</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome-card">
+      <div class="welcome-text">
+        <h1>Olá, João! 👋</h1>
+        <p>Selecione abaixo o que deseja fazer hoje.</p>
+      </div>
+      <div class="notif-toggle">
+        <span>Notificações:</span>
+        <button id="btnNotificacoes" aria-label="Ativar ou desativar notificações">
+          <div class="circle"></div>
+        </button>
+        <span id="notifStatus" class="notif-status">Desativadas</span>
+      </div>
+    </section>
+
+    <section class="grid-opcoes">
+      <article class="card-opcao">
+        <h2>Agendar Consulta</h2>
+        <p>Escolha especialidade, profissional e melhor data para você.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Minhas Consultas</h2>
+        <p>Visualize consultas futuras, reagende ou cancele quando necessário.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Visualizar Histórico Clínico</h2>
+        <p>Acesse exames, laudos, receitas e atendimentos anteriores.</p>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const btn = document.getElementById("btnNotificacoes");
+    const statusSpan = document.getElementById("notifStatus");
+    let notificacoesAtivas = false;
+
+    btn.addEventListener("click", () => {
+      notificacoesAtivas = !notificacoesAtivas;
+      if (notificacoesAtivas) {
+        btn.classList.add("ativo");
+        statusSpan.textContent = "Ativadas";
+      } else {
+        btn.classList.remove("ativo");
+        statusSpan.textContent = "Desativadas";
+      }
+    });
+  </script>
+</body>
+</html>

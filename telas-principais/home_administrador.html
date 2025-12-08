@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>VidaPlus - Painel do Administrador</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #1c7c54;
+      --primary-dark: #155b3d;
+      --bg: #f3f5f7;
+      --card-bg: #ffffff;
+      --accent: #0f9cf5;
+      --text-main: #1f2933;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    .user-info {
+      font-size: 0.9rem;
+      text-align: right;
+    }
+
+    main {
+      flex: 1;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .welcome-card {
+      background: var(--card-bg);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+    }
+
+    .welcome-card h1 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .welcome-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .grid-opcoes {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .card-opcao {
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      padding: 1.4rem 1.25rem;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+    }
+
+    .card-opcao h2 {
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-opcao p {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .card-opcao:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+      background: #f9fafb;
+    }
+
+    @media (max-width: 1000px) {
+      .grid-opcoes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid-opcoes {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sistema VidaPlus</div>
+    <div class="user-info">
+      <div>Administrador: <strong>Carla Oliveira</strong></div>
+      <div>Unidade: Hospital VidaPlus Central</div>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome-card">
+      <h1>Dashboard do Administrador</h1>
+      <p>Gerencie usuários, consultas, internações, relatórios e agenda da equipe de saúde.</p>
+    </section>
+
+    <section class="grid-opcoes">
+      <article class="card-opcao">
+        <h2>Gerenciar cadastro de usuários</h2>
+        <p>Crie, edite e desative contas de pacientes, profissionais e outros administradores.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Gerenciar consultas</h2>
+        <p>Controle agendamentos, encaixes, cancelamentos e estatísticas de atendimento.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Gerenciar internações</h2>
+        <p>Acompanhe leitos, altas, transferências e fila de espera.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Relatórios</h2>
+        <p>Gere relatórios gerenciais, indicadores assistenciais e produtividade.</p>
+      </article>
+
+      <article class="card-opcao">
+        <h2>Agenda dos profissionais de saúde</h2>
+        <p>Visualize e ajuste a agenda de médicos, enfermeiros e demais profissionais.</p>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
