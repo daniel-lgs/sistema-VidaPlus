@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>VidaPlus - Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #1c7c54;
+      --primary-dark: #155b3d;
+      --bg: #f3f5f7;
+      --card-bg: #ffffff;
+      --accent: #0f9cf5;
+      --danger: #d9534f;
+      --text-main: #1f2933;
+      --muted: #6b7280;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.4rem;
+      letter-spacing: 0.03em;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border-radius: 0.75rem;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.65rem 0.75rem;
+      border-radius: 0.5rem;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(15, 156, 245, 0.3);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.25rem;
+      font-size: 0.85rem;
+    }
+
+    .link {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.1s;
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--primary);
+      color: #fff;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 12px rgba(28, 124, 84, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(28, 124, 84, 0.45);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0 1rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .divider span {
+      margin: 0 0.75rem;
+    }
+
+    .btn-outline {
+      width: 100%;
+      background: #fff;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: #f0fdf4;
+    }
+
+    .message {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.75rem;
+      border-radius: 0.5rem;
+      display: none;
+    }
+
+    .message.error {
+      background: #fef2f2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+
+    .message.success {
+      background: #ecfdf3;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1.5rem 1.25rem;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Sistema VidaPlus</div>
+  </header>
+
+  <main>
+    <section class="container">
+      <h1>Bem-vindo(a)</h1>
+      <p class="subtitle">Acesse sua conta para acompanhar consultas e histórico clínico.</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">E-mail cadastrado</label>
+          <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" required minlength="6" placeholder="••••••••" />
+          <div class="actions">
+            <a href="#" class="link">Esqueci minha senha</a>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary">Entrar</button>
+
+        <div id="loginMessage" class="message"></div>
+
+        <div class="divider">
+          <span>ou</span>
+        </div>
+
+        <button type="button" class="btn-outline">
+          Sou paciente novo, quero me cadastrar
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    // Usuário de teste "existente" (paciente)
+    const validUsers = {
+      "paciente@vidaplus.com": "VidaPlus123!"
+    };
+
+    const form = document.getElementById("loginForm");
+    const messageBox = document.getElementById("loginMessage");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const senha = document.getElementById("senha").value;
+
+      messageBox.style.display = "block";
+
+      if (!validUsers[email]) {
+        messageBox.textContent = "Conta não encontrada. Verifique o e-mail informado.";
+        messageBox.className = "message error";
+        return;
+      }
+
+      if (validUsers[email] !== senha) {
+        messageBox.textContent = "Email ou senha inválido(s).";
+        messageBox.className = "message error";
+        return;
+      }
+
+      messageBox.textContent = "Login realizado com sucesso! (simulação)";
+      messageBox.className = "message success";
+    });
+  </script>
+</body>
+</html>
