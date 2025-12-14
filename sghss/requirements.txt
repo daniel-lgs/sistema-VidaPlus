@@ -1,5 +1,3 @@
 Django>=5.0,<6.0
 djangorestframework>=3.16
-djangorestframework-simplejwt>=5.4.0  # opcional, se quisesse JWT (aqui vou usar TokenAuth)
-djangorestframework-authtoken>=1.0.0  # se não estiver disponível, use 'djangorestframework' e 'rest_framework.authtoken'
 python-dotenv>=1.0
