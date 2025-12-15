@@ -1,378 +1,267 @@
-# **SGHSS VidaPlus – Back-end (Django + Django REST Framework)**
+# 🏥 Sistema de Gestão Hospitalar e de Serviços de Saúde – VidaPlus (SGHSS)
 
-## **1. Visão geral do projeto**
+Este repositório contém o **back-end completo** de um **Sistema de Gestão Hospitalar e de Serviços de Saúde (SGHSS)** desenvolvido como **trabalho acadêmico** da disciplina **Projetos**, com foco em **Back-end** e **Engenharia de Software**.
 
-Este repositório contém o **back-end** do sistema **SGHSS – Sistema de Gestão Hospitalar e de Serviços de Saúde da instituição VidaPlus**, desenvolvido como **projeto teórico** para a disciplina de Projetos (curso de Análise e Desenvolvimento de Sistemas da UNINTER).
-
-O objetivo é demonstrar, de forma prática, como aplicar conceitos de:
-
-- Engenharia de Software
-- Boas práticas de desenvolvimento Back-end
-- Arquitetura em camadas (API REST)
-- Segurança e auditoria (logs, autenticação, controle de acesso)
-- Integração com front-end (via endpoints REST testáveis)
-
-> Importante: este projeto se propõe a ser um protótipo funcional de back-end, com foco em alguns módulos principais (cadastro de usuários e consultas, autenticação e logs), e não em um produto final pronto para produção.
-> 
+O sistema foi projetado para simular um **cenário real de alta criticidade na área da saúde**, contemplando segurança, controle de acesso, auditoria (logs) e telemedicina.
 
 ---
 
-## **2. Funcionalidades implementadas**
+## 📚 Contexto acadêmico
 
-O back-end implementa:
+Este projeto foi desenvolvido com **abordagem teórica-prática**, ou seja:
 
-### **2.1. Autenticação**
+* O **back-end foi implementado de forma funcional e testável**
+* O **front-end (HTML/CSS)** existe apenas como protótipo visual
+* **Não há integração direta entre front-end e back-end**
+* Todas as funcionalidades do back-end podem ser testadas **via API REST**, utilizando ferramentas como o **Insomnia**
 
-- Login via **e-mail e senha**
-- Geração de **Token** de autenticação (padrão Django REST Framework)
-- Logout com revogação do token
-- Controle de acesso por **papel** do usuário:
-    - `ADMIN` – Administrador
-    - `PACIENTE` – Paciente
-    - `PROF` – Profissional de Saúde
+O objetivo é demonstrar:
 
-### **2.2. CRUD de Pacientes**
+* Modelagem correta
+* Arquitetura
+* Boas práticas
+* Segurança
+* Organização
+* Documentação profissional
 
-- Auto cadastro de pacientes **sem necessidade de usuário logado**
-- Cadastro, atualização, listagem e exclusão de pacientes por **Administradores**
-- Paciente autenticado pode:
-    - Ver seu próprio cadastro
-    - Atualizar seus dados
-    - Excluir seu cadastro
+---
 
-### **2.3. CRUD de Administradores**
+## 🎯 Objetivos do sistema
 
-- CRUD de administradores acessível **apenas para usuários com papel ADMIN**
-- Criação de novos administradores somente por outro administrador
+O SGHSS VidaPlus tem como objetivo centralizar:
 
-> O sistema inicia com um Administrador pré-cadastrado, criado pelo comando:
-> 
-> - E-mail: `sistema.sghss@gmail.com`
-> - Senha: `dSf@#4340fdk`
+* Cadastro e atendimento de pacientes
+* Gestão de profissionais de saúde
+* Gestão administrativa
+* Agendamento de consultas presenciais e online
+* Telemedicina (link automático de videochamada)
+* Controle de acesso por perfil
+* Registro completo de logs (auditoria)
+* Conformidade conceitual com a LGPD
 
-### **2.4. CRUD de Profissionais de Saúde**
+---
 
-- CRUD de profissionais de saúde (médicos, enfermeiros, técnicos etc.)
-- Acesso restrito a **Administradores**
-- Armazena dados como:
-    - Nome completo
-    - Especialidade
-    - Registro profissional (CRM/COREN/etc.)
+## 👥 Perfis de usuário
 
-### **2.5. CRUD de Consultas (Presencial e Online)**
+O sistema trabalha com **três perfis distintos**, cada um com permissões específicas:
 
-- Pacientes podem:
-    - Criar consultas **para si mesmos**
-    - Listar suas próprias consultas
-    - Cancelar suas consultas
-- Administradores podem:
-    - Criar consultas para qualquer paciente/profissional
-    - Listar todas as consultas do sistema
-    - Cancelar qualquer consulta
-- Profissionais de Saúde podem:
-    - Listar apenas consultas em que são o profissional responsável
-    - Cancelar suas consultas com **justificativa obrigatória**
+### 👨‍💼 Administrador (ADMIN)
 
-### **Telemedicina – Geração Automática de Link**
+* Cria administradores
+* Cria profissionais de saúde
+* Visualiza todos os pacientes
+* Cria, visualiza e cancela qualquer consulta
+* Visualiza todos os logs do sistema
 
-Para consultas do tipo **ONLINE**, na criação da consulta o sistema gera automaticamente um link no padrão:
+### 🧑‍⚕️ Profissional de Saúde (PROF)
 
+* Visualiza **apenas suas consultas**
+* Cancela suas consultas (justificativa obrigatória)
+* Não cria consultas
+* Não cria usuários
+
+### 🧑‍🦱 Paciente (PACIENTE)
+
+* Pode se auto-cadastrar (sem login prévio)
+* Visualiza e edita seu próprio cadastro
+* Cria, visualiza e cancela suas próprias consultas
+* Acessa link de teleconsulta
+
+---
+
+## 🛠️ Tecnologias utilizadas
+
+### Back-end
+
+* **Python**
+* **Django**
+* **Django REST Framework**
+* **Token Authentication**
+* **SQLite** (banco relacional SQL)
+
+### Ferramentas
+
+* **Git / GitHub**
+* **Insomnia** (testes de API)
+* **Virtualenv (venv)**
+
+---
+
+## 📁 Estrutura do projeto
+
+```text
+sghss/
+├── manage.py
+├── requirements.txt
+├── README.md
+├── db.sqlite3
+├── sghss/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+└── core/
+    ├── admin.py
+    ├── apps.py
+    ├── models.py
+    ├── permissions.py
+    ├── serializers.py
+    ├── views.py
+    ├── urls.py
+    ├── migrations/
+    │   └── __init__.py
+    └── management/
+        └── commands/
+            └── criar_admin_inicial.py
 ```
-https://meet.jit.si/abc-def-ghi
-```
-
-Ou seja, um link do serviço [**https://meet.jit.si**](https://meet.jit.si/) com um sufixo aleatório (como `ytr-koi-eqs`).
-
-### 2.6. Logs de Ações (Auditoria)
-
-Todas as ações importantes geram **logs**:
-
-- Login / Logout
-- Criação, atualização e exclusão de pacientes
-- Criação, atualização e exclusão de administradores e profissionais de saúde
-- Criação e cancelamento de consultas
-
-Os logs registram:
-
-- Usuário responsável (quando houver)
-- Ação realizada
-- Detalhes descritivos
-- Data e hora
-- IP (quando disponível)
-
-> Apenas administradores podem consultar os logs via endpoint /api/logs/.
-> 
 
 ---
 
-## 3. Tecnologias utilizadas
+## ⚙️ Pré-requisitos
 
-- **Linguagem**: Python 3.x
-- **Framework Web**: Django
-- **API REST**: Django REST Framework
-- **Autenticação**: Django REST Framework Token Authentication
-- **Banco de dados**: SQLite (padrão, pode ser alterado para PostgreSQL/MySQL)
-- **Ferramenta de testes de API**: Insomnia (pode usar também Postman ou `curl`)
+Antes de começar, você precisa ter instalado:
 
----
+* **Python 3.12 ou superior**
+* **Git**
+* **Insomnia** (ou Postman)
 
-## 4. Requisitos para executar o projeto
+Links úteis:
 
-### 4.1. Software necessário
-
-Antes de começar, instale:
-
-1. **Python 3.10 ou superior**
-    - Baixar no site oficial: pesquise por “Download Python” e escolha a versão para seu sistema.
-    - Durante a instalação no Windows, marque a opção **“Add Python to PATH”**.
-2. **Git** (opcional, mas recomendado)
-    - Usado para clonar o repositório.
-3. **Insomnia**
-    - Ferramenta gráfica para testar endpoints HTTP.
-    - Baixe no site do Insomnia (busque por “Download Insomnia REST Client”).
+* Python: [https://www.python.org/downloads/](https://www.python.org/downloads/)
+* Insomnia: [https://insomnia.rest/](https://insomnia.rest/)
 
 ---
 
-## 5. Passo a passo para rodar o servidor (ambiente local)
+## 🚀 Como executar o projeto (passo a passo)
 
-### 5.1. Clonar o repositório
-
-Se o back-end estiver dentro do seu repositório `sistema-VidaPlus`:
+### 1️⃣ Clone o repositório
 
 ```bash
 git clone https://github.com/daniel-lgs/sistema-VidaPlus.git
-cd sistema-VidaPlus
-
-# se o backend estiver numa pasta específica, por exemplo:
-cd backend
-
+cd sistema-VidaPlus/sghss
 ```
 
-Se você criar um repo separado para o back-end, adapte o comando.
+---
 
-### 5.2. Criar e ativar um ambiente virtual (virtualenv)
-
-No Windows (PowerShell):
+### 2️⃣ Crie e ative o ambiente virtual (venv)
 
 ```bash
 python -m venv venv
-venv\Scripts\activate
-
 ```
 
-No Linux / macOS:
+#### Windows (PowerShell):
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-
+```powershell
+venv\Scripts\Activate.ps1
 ```
 
-Você saberá que o ambiente está ativo porque aparecerá algo como `(venv)` no início da linha do terminal.
+> Caso o PowerShell bloqueie scripts, execute uma vez:
 
-### 5.3. Instalar as dependências
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
 
-Com o ambiente virtual já ativado e dentro da pasta do projeto (onde está o `requirements.txt`):
+---
+
+### 3️⃣ Instale as dependências
 
 ```bash
 pip install -r requirements.txt
-
 ```
 
-### 5.4. Aplicar as migrações do banco de dados
+---
+
+### 4️⃣ Crie o banco de dados e as tabelas
 
 ```bash
+python manage.py makemigrations
 python manage.py migrate
-
 ```
 
-Isso vai criar as tabelas necessárias (usuários, pacientes, consultas, logs etc.) no banco `db.sqlite3`.
+---
 
-### 5.5. Criar o administrador inicial
-
-O projeto possui um comando customizado para criar o **Administrador padrão** do sistema.
-
-Execute:
+### 5️⃣ Crie o administrador inicial (obrigatório)
 
 ```bash
 python manage.py criar_admin_inicial
-
 ```
 
-Se tudo der certo, você verá uma mensagem indicando que o administrador foi criado com:
+Esse comando cria automaticamente o **ADMIN padrão do sistema**:
 
-- E-mail: `sistema.sghss@gmail.com`
-- Senha: `dSf@#4340fdk`
+* **E-mail:** `sistema.sghss@gmail.com`
+* **Senha:** `dSf@#4340fdk`
 
-> Essas credenciais também serão mencionadas no documento do trabalho para que o professor consiga testar.
-> 
+---
 
-### 5.6. Executar o servidor de desenvolvimento
-
-Por fim, rode:
+### 6️⃣ Inicie o servidor
 
 ```bash
 python manage.py runserver
-
 ```
 
-Por padrão, o servidor ficará disponível em:
+O sistema estará disponível em:
 
 ```
-http://127.0.0.1:8000/
-
-```
-
-Os endpoints da API estarão sob `/api/`, por exemplo:
-
-- `http://127.0.0.1:8000/api/auth/login/`
-- `http://127.0.0.1:8000/api/pacientes/`
-- `http://127.0.0.1:8000/api/consultas/`
-- etc.
-
----
-
-## 6. Estrutura de pastas do projeto
-
-Resumo da estrutura principal:
-
-```
-sghss/
-├── manage.py                 # Arquivo de gerenciamento do Django
-├── requirements.txt          # Dependências do projeto
-├── sghss/                    # Pasta do projeto Django
-│   ├── __init__.py
-│   ├── settings.py           # Configurações (apps, banco, DRF, etc.)
-│   ├── urls.py               # Rotas principais (inclui /api/)
-│   └── wsgi.py
-└── core/                     # App principal (lógica de negócio)
-    ├── __init__.py
-    ├── admin.py              # Registro de modelos no admin do Django
-    ├── apps.py
-    ├── models.py             # Modelos: Usuario, Paciente, Administrador, ProfissionalSaude, Consulta, LogAcao
-    ├── permissions.py        # Permissões baseadas em papel (ADMIN, PACIENTE, PROF)
-    ├── serializers.py        # Serializers DRF para converter modelos <-> JSON
-    ├── urls.py               # Rotas da API: /pacientes, /consultas, etc.
-    ├── views.py              # Lógica das views e endpoints REST
-    ├── tests.py              # (Opcional) testes automatizados
-    └── management/
-        └── commands/
-            └── criar_admin_inicial.py   # Comando para criar o admin inicial
-
+http://127.0.0.1:8000
 ```
 
 ---
 
-## 7. Como testar a API no Insomnia
+## 🔐 Autenticação (muito importante)
 
-A seguir, um passo a passo **prático** para testar os principais endpoints.
+O sistema utiliza **Token Authentication**.
 
-### 7.1. Criar um ambiente no Insomnia
+### Login
 
-1. Abra o Insomnia.
-2. Crie um **New Collection** (ou **New Workspace**).
-3. Nas configurações do ambiente, crie uma variável, por exemplo:
-
-```json
-{
-  "base_url": "http://127.0.0.1:8000/api",
-  "token": ""
-}
-
-```
-
-Depois, quando você fizer login, preencha o campo `"token"` com o valor retornado.
-
----
-
-### 7.2. Login como Administrador
-
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/auth/login/`
-
-**Body (JSON):**
+**POST** `/api/auth/login/`
 
 ```json
 {
   "email": "sistema.sghss@gmail.com",
   "senha": "dSf@#4340fdk"
 }
-
 ```
 
-Se estiver tudo certo, a resposta será algo como:
-
-```json
-{
-  "token": "c1a2b3c4d5...",
-  "usuario": {
-    "id": 1,
-    "email": "sistema.sghss@gmail.com",
-    "papel": "ADMIN"
-  }
-}
-
-```
-
-Copie o valor de `"token"` e coloque na variável `token` do ambiente.
+A resposta conterá um **token**.
 
 ---
 
-### 7.3. Enviar o token em todas as requisições autenticadas
+### ⚠️ Header obrigatório em TODAS as requisições protegidas
 
-Em cada request autenticado, adicione o header:
+```http
+Authorization: Token SEU_TOKEN_AQUI
+```
 
-- **Header**: `Authorization`
-- **Valor**: `Token {{ token }}`
-
-Exemplo: `Token c1a2b3c4d5...`
+❗ A palavra **Token** é obrigatória
+❗ Cada requisição precisa do header (abas do Insomnia não compartilham)
 
 ---
 
-### 7.4. Testar CRUD de Pacientes
+## 🧪 Testando no Insomnia (roteiro básico)
 
-### 7.4.1. Criar paciente (auto-cadastro, sem token)
+### Criar paciente (sem autenticação)
 
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/pacientes/`
-- **Headers**: não precisa de `Authorization` (pode deixar vazio)
-
-**Body (JSON):**
+**POST** `/api/pacientes/`
 
 ```json
 {
   "email": "paciente1@exemplo.com",
-  "senha": "SenhaSegura123",
+  "senha": "SenhaPaciente123",
   "nome_completo": "Paciente de Teste",
   "cpf": "123.456.789-00",
   "data_nascimento": "1990-01-01",
   "telefone": "11999999999",
   "endereco": "Rua Exemplo, 123"
 }
-
 ```
-
-Você receberá de volta os dados do paciente criado.
-
-### 7.4.2. Listar pacientes (como ADMIN)
-
-- **Método**: `GET`
-- **URL**: `{{ base_url }}/pacientes/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do admin)
-
-Deve retornar a lista de pacientes.
 
 ---
 
-### 7.5. Criar um Profissional de Saúde (como ADMIN)
+### Criar profissional de saúde (ADMIN)
 
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/profissionais-saude/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do admin)
-
-**Body (JSON):**
+**POST** `/api/profissionais-saude/`
+Header: `Authorization: Token ...`
 
 ```json
 {
@@ -382,130 +271,86 @@ Deve retornar a lista de pacientes.
   "especialidade": "Cardiologia",
   "registro_profissional": "CRM-12345"
 }
-
 ```
 
 ---
 
-### 7.6. Criar uma Consulta (como Paciente ou como Admin)
+### Criar consulta online
 
-### 7.6.1. Login como Paciente
-
-Use o endpoint `/auth/login/` com o e-mail/senha do paciente criado.
-
-Salve o token na variável `token`.
-
-### 7.6.2. Criar consulta online (Paciente)
-
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/consultas/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do paciente)
-
-**Body (JSON):**
+**POST** `/api/consultas/`
 
 ```json
 {
-  "paciente": 1,               // será ignorado e substituído pelo paciente logado
-  "profissional": 1,           // ID do profissional criado
-  "tipo_atendimento": "ONLINE",
-  "data_horario": "2025-12-31T14:00:00Z",
-  "local": ""                  // pode ficar vazio para online
-}
-
-```
-
-A resposta conterá algo como:
-
-```json
-{
-  "id": 1,
   "paciente": 1,
   "profissional": 1,
-  "administrador_criador": null,
   "tipo_atendimento": "ONLINE",
-  "data_horario": "2025-12-31T14:00:00Z",
-  "local": null,
-  "link_teleconsulta": "https://meet.jit.si/abc-def-ghi",
-  "status": "AGENDADA",
-  "justificativa_cancelamento": null,
-  "criado_em": "...",
-  "atualizado_em": "..."
+  "data_horario": "2026-01-10T14:00:00Z",
+  "local": ""
 }
-
 ```
 
-Note o campo **`link_teleconsulta`** já preenchido com um link do **meet.jit.si**.
+➡️ O sistema gera automaticamente um link Jitsi:
+
+```
+https://meet.jit.si/abc-def-ghi
+```
 
 ---
 
-### 7.7. Cancelar uma Consulta
+### Cancelar consulta
 
-### 7.7.1. Cancelar como Paciente
+**POST** `/api/consultas/1/cancelar/`
 
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/consultas/1/cancelar/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do paciente dono da consulta)
-
-**Body (JSON opcional):**
+Profissional:
 
 ```json
 {
-  "justificativa": "Não poderei comparecer."
+  "justificativa": "Imprevisto na agenda."
 }
-
 ```
-
-O status da consulta será atualizado para `CANCELADA_PACIENTE`.
-
-### 7.7.2. Cancelar como Profissional de Saúde (justificativa obrigatória)
-
-- **Método**: `POST`
-- **URL**: `{{ base_url }}/consultas/1/cancelar/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do profissional)
-
-**Body (JSON):**
-
-```json
-{
-  "justificativa": "Imprevisto médico na agenda."
-}
-
-```
-
-Se não enviar `justificativa`, o sistema retorna erro 400.
 
 ---
 
-### 7.8. Consultar Logs (como ADMIN)
+### Visualizar logs (somente ADMIN)
 
-- **Método**: `GET`
-- **URL**: `{{ base_url }}/logs/`
-- **Headers**:
-    - `Authorization: Token {{ token }}` (token do admin)
-
-Retorna uma lista de logs com:
-
-- Usuário
-- Ação
-- Detalhes
-- Data e hora
-- IP (se disponível)
+**GET** `/api/logs/`
 
 ---
 
-## 8. Próximos passos e integração com o trabalho acadêmico
+## 🧾 Logs e auditoria
 
-Este back-end foi pensado para:
+✔️ Todas as ações relevantes são registradas:
 
-- Ser **testável de forma independente** (sem depender do front-end)
-- Ser utilizado como base para o **trabalho teórico**, onde:
-    - A parte de **Implementação** descreverá **todos os endpoints** (método, URL, parâmetros, JSON, respostas, códigos HTTP).
-    - A parte de **Análise de Requisitos** e **Modelagem** vai se apoiar nas funcionalidades aqui descritas.
-    - A **Telemedicina** será exemplificada através das consultas online e dos links `https://meet.jit.si/...`.
-    - A **Segurança e Compliance (LGPD)** será discutida com base em:
-        - Autenticação por token
-        - Controle de acesso por papel
-        - Logs de auditoria
+* Login
+* Logout
+* Criação/edição/exclusão de usuários
+* Criação e cancelamento de consultas
+
+✔️ Logs incluem:
+
+* Usuário
+* Ação
+* Data/hora
+* IP
+
+✔️ Apenas administradores podem consultar logs
+
+---
+
+## 🔒 Segurança e LGPD (nível acadêmico)
+
+* Senhas criptografadas
+* Controle de acesso por perfil
+* Restrição de dados por sessão
+* Auditoria completa
+* Separação clara de responsabilidades
+
+---
+
+## ⚠️ Aviso importante
+
+Este projeto:
+
+* **Não é para produção**
+* Utiliza servidor de desenvolvimento do Django
+* Foi desenvolvido **exclusivamente para fins acadêmicos**
